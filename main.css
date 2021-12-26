@@ -101,6 +101,15 @@ main img {
 	background-color: rgba(0,0,0,0.7);
 }
 
+.lightbox > a::after {
+	transition: all 0.5s ease;
+	opacity: 0.5;
+}
+
+.lightbox > a:hover::after {
+	opacity: 1;
+}
+
 .lightbox_close {
 	top: 0;
 	right: 0;
