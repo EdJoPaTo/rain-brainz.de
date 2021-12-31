@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-mkdir -p public/generated
-ln -srf main.css robots.txt public
+mkdir -p public/generated/
 
-cat prefix.html > public/index.html
+cat parts/prefix.html > public/index.html
 
 for file in originals/*; do
 	filename=$(basename "$file")
@@ -66,5 +65,5 @@ EOF
 EOF
 done
 
-cat suffix.html >> public/index.html
+cat parts/suffix.html >> public/index.html
 wait
