@@ -23,7 +23,7 @@ for ((i=0; i<${#sorted[@]}; i++)); do
 	thumb="generated/${i}_thumb.webp"
 	big="generated/${i}_big.webp"
 
-	echo "handle $i: $filename"
+	echo "handle $((i+1))/${#sorted[@]}: $filename"
 
 	if [ ! -f "public/$thumb" ]; then
 		convert "$file" \
