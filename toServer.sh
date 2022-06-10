@@ -3,4 +3,8 @@ set -e
 
 rm -rf public/generated/
 ./generate.sh
-rsync -acv --compress --omit-dir-times --copy-links --exclude=.DS_Store --delete-delay --delay-updates public/ xmas2014.3t0.de:/var/www/rain-brainz.de/
+rsync \
+    --recursive --perms --times \
+    --compress --verbose --checksum --delete-delay --delay-updates \
+    --exclude=.DS_Store \
+    public/ xmas2014.3t0.de:/var/www/rain-brainz.de/
