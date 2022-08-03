@@ -60,6 +60,8 @@ main img {
 }
 
 .lightbox {
+	-webkit-backdrop-filter: blur(15px);
+	backdrop-filter: blur(15px);
 	background-color: rgba(20,20,20,0.95);
 	display: none;
 	height: 100%;
