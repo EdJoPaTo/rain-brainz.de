@@ -35,8 +35,12 @@ header h1 {
 }
 
 footer {
+	position: sticky;
+	bottom: 2px;
+
 	margin: 1rem auto;
-	opacity: 0.6;
+	opacity: 0.8;
+	text-shadow: 0px 0px 10px black;
 }
 
 a {
