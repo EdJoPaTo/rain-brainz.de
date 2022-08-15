@@ -38,9 +38,14 @@ footer {
 	position: sticky;
 	bottom: 2px;
 
+	-webkit-backdrop-filter: blur(15px);
+	backdrop-filter: blur(15px);
+	background-color: rgba(240,240,240,0.5);
+	border-radius: 0.2rem;
+	color: black;
 	margin: 1rem auto;
-	opacity: 0.8;
-	text-shadow: 0px 0px 10px black;
+	padding: 0.2rem;
+	text-align: center;
 }
 
 a {
