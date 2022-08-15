@@ -56,7 +56,7 @@ for ((i=0; i<${#sorted[@]}; i++)); do
 	</picture>
 </a>
 <div id="$i" class="lightbox">
-	<div class="image" style="--avif: url($big.avif); --jpg: url($big.jpg);"></div>
+	<div class="image" style="background-image: url($big.jpg); background-image: image-set(url($big.avif) type('image/avif'));"></div>
 EOF
 
 	if (( i > 0 )); then
