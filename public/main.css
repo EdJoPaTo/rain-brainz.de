@@ -81,7 +81,10 @@ main img {
 	justify-content: space-evenly;
 }
 
-.lightbox div {
+.lightbox .image {
+	background-image: var(--jpg);
+	background-image: image-set(var(--avif) type('image/avif'));
+
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;

@@ -10,5 +10,5 @@ This was made to suit my needs.
 Maybe it also works for you.
 
 - Place the images in the folder `originals`.
-- Make sure ImageMagick is installed (with WebP support).
+- Make sure ImageMagick is installed (with AVIF support).
 - Run `./generate.sh` or `./toServer.sh`
