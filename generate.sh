@@ -52,7 +52,7 @@ for ((i=0; i<${#sorted[@]}; i++)); do
 <a href="#$i">
 	<picture>
 		<source srcset="$thumb.avif" type="image/avif">
-		<img src="$thumb.jpg" width="450" height="300" alt="Thumbnail of an untitled image" />
+		<img src="$thumb.jpg" width="450" height="300" loading="lazy" alt="Thumbnail of an untitled image" />
 	</picture>
 </a>
 <div id="$i" class="lightbox">
