@@ -3,7 +3,7 @@ set -eu
 
 mkdir -p public/generated/
 
-cat parts/prefix.html > public/index.html
+cp parts/prefix.html public/index.html
 
 for file in originals/*; do
 	filename=$(basename "$file")
@@ -13,7 +13,7 @@ done
 # see https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash#11789688
 IFS=$'\n' sorted=($(sort -h <<<"${files[*]}"))
 
-for ((i=0; i<${#sorted[@]}; i++)); do
+for ((i = 0; i < ${#sorted[@]}; i++)); do
 	filename="${sorted[$i]}"
 	file="originals/$filename"
 
@@ -24,7 +24,7 @@ for ((i=0; i<${#sorted[@]}; i++)); do
 	big="generated/${i}_big"
 	download="generated/${i}_download"
 
-	echo "handle $((i+1))/${#sorted[@]}: $filename"
+	echo "handle $((i + 1))/${#sorted[@]}: $filename"
 
 	if [ ! -f "public/$big.avif" ]; then
 		convert "$file" \
@@ -53,7 +53,7 @@ for ((i=0; i<${#sorted[@]}; i++)); do
 		wait
 	fi
 
-	cat <<EOF >> public/index.html
+	cat <<EOF >>public/index.html
 <a href="#$i">
 	<picture>
 		<source srcset="$thumb.avif" type="image/avif">
@@ -64,26 +64,26 @@ for ((i=0; i<${#sorted[@]}; i++)); do
 	<div class="image" style="background-image: url($big.jpg); background-image: image-set(url($big.avif) type('image/avif'));"></div>
 EOF
 
-	if (( i > 0 )); then
-		before=$((i-1))
-		cat <<EOF >> public/index.html
+	if ((i > 0)); then
+		before=$((i - 1))
+		cat <<EOF >>public/index.html
 	<a class="lightbox_before" href="#${before}" aria-label="Go to the image before"></a>
 EOF
 	fi
 
-	if (( i < ${#sorted[@]} - 1 )); then
-		after=$((i+1))
-		cat <<EOF >> public/index.html
+	if ((i < ${#sorted[@]} - 1)); then
+		after=$((i + 1))
+		cat <<EOF >>public/index.html
 	<a class="lightbox_after" href="#${after}" aria-label="Go to the image after"></a>
 EOF
 	fi
 
-	cat <<EOF >> public/index.html
+	cat <<EOF >>public/index.html
 	<a class="lightbox_close" href="#_" aria-label="Close the image overlay"></a>
 	<a class="lightbox_download" href="$download.jpg" aria-label="Download the image" download="rain-brainz-$i"></a>
 </div>
 EOF
 done
 
-cat parts/suffix.html >> public/index.html
+cat parts/suffix.html >>public/index.html
 wait
