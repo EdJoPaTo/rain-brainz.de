@@ -22,6 +22,7 @@ for ((i=0; i<${#sorted[@]}; i++)); do
 
 	thumb="generated/${i}_thumb"
 	big="generated/${i}_big"
+	download="generated/${i}_download"
 
 	echo "handle $((i+1))/${#sorted[@]}: $filename"
 
@@ -44,6 +45,10 @@ for ((i=0; i<${#sorted[@]}; i++)); do
 			-resize '2000x1500>' \
 			-sampling-factor 4:2:0 -quality 85 \
 			"public/$big.jpg" &
+		nice convert "$file" \
+			-strip \
+			-sampling-factor 4:2:0 -quality 95 \
+			"public/$download.jpg" &
 
 		wait
 	fi
@@ -75,7 +80,7 @@ EOF
 
 	cat <<EOF >> public/index.html
 	<a class="lightbox_close" href="#_" aria-label="Close the image overlay"></a>
-	<a class="lightbox_download" href="$big.avif" aria-label="Download the image"></a>
+	<a class="lightbox_download" href="$download.jpg" aria-label="Download the image" download="rain-brainz-$i"></a>
 </div>
 EOF
 done
