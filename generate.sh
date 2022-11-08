@@ -67,20 +67,20 @@ EOF
 	if ((i > 0)); then
 		before=$((i - 1))
 		cat <<EOF >>public/index.html
-	<a class="lightbox_before" href="#${before}" aria-label="Go to the image before"></a>
+	<a class="before" href="#${before}" aria-label="Go to the image before"></a>
 EOF
 	fi
 
 	if ((i < ${#sorted[@]} - 1)); then
 		after=$((i + 1))
 		cat <<EOF >>public/index.html
-	<a class="lightbox_after" href="#${after}" aria-label="Go to the image after"></a>
+	<a class="after" href="#${after}" aria-label="Go to the image after"></a>
 EOF
 	fi
 
 	cat <<EOF >>public/index.html
-	<a class="lightbox_close" href="#_" aria-label="Close the image overlay"></a>
-	<a class="lightbox_download" href="$download.jpg" aria-label="Download the image" download="rain-brainz-$i"></a>
+	<a class="close" href="#_" aria-label="Close the image overlay"></a>
+	<a class="download" href="$download.jpg" aria-label="Download the image" download="rain-brainz-$i"></a>
 </div>
 EOF
 done

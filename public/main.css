@@ -121,40 +121,40 @@ main img {
 	opacity: 1;
 }
 
-.lightbox_close {
+.lightbox a.close {
 	top: 0;
 	right: 0;
 }
 
-.lightbox_download {
+.lightbox a.download {
 	bottom: 0;
 	right: 0;
 }
 
-.lightbox_before {
+.lightbox a.before {
 	top: 0;
 	bottom: 0;
 	left: 0;
 }
 
-.lightbox_after {
+.lightbox a.after {
 	top: 5rem;
 	bottom: 5rem;
 	right: 0;
 }
 
-.lightbox_close::after {
+.lightbox a.close::after {
 	content: "\00d7";
 }
 
-.lightbox_download::after {
+.lightbox a.download::after {
 	content: "↓";
 }
 
-.lightbox_before::after {
+.lightbox a.before::after {
 	content: "←";
 }
 
-.lightbox_after::after {
+.lightbox a.after::after {
 	content: "→";
 }
