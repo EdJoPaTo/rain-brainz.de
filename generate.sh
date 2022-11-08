@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-mkdir -p public/generated/
+mkdir -p public/i/
 
 cp parts/prefix.html public/index.html
 
@@ -20,9 +20,9 @@ for ((i = 0; i < ${#sorted[@]}; i++)); do
 	# extension="${filename##*.}"
 	# basename="${filename%.*}"
 
-	thumb="generated/${i}_thumb"
-	big="generated/${i}_big"
-	download="generated/${i}_download"
+	thumb="i/${i}_thumb"
+	big="i/${i}_big"
+	download="i/${i}_download"
 
 	echo "handle $((i + 1))/${#sorted[@]}: $filename"
 

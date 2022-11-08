@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-rm -rf public/generated/
+rm -rf public/i/
 ./generate.sh
 rsync \
 	--recursive --perms --times --omit-dir-times \
