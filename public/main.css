@@ -109,7 +109,7 @@ main img {
 }
 
 .lightbox > a:hover {
-	background-color: rgba(0,0,0,0.7);
+	background-color: rgba(0,0,0,0.5);
 }
 
 .lightbox > a::after {
