@@ -27,26 +27,21 @@ for ((i = 0; i < ${#sorted[@]}; i++)); do
 	echo "handle $((i + 1))/${#sorted[@]}: $filename"
 
 	if [ ! -f "public/$big.avif" ]; then
-		convert "$file" \
-			-strip \
+		convert "$file" -strip \
 			-resize '450x300^' -gravity Center -extent '450x300' \
 			"public/$thumb.avif"
-		nice convert "$file" \
-			-strip \
+		nice convert "$file" -strip \
 			-resize '3000x2500>' \
 			"public/$big.avif" &
-		nice convert "$file" \
-			-strip \
+		nice convert "$file" -strip \
 			-resize '450x300^' -gravity Center -extent '450x300' \
 			-sampling-factor 4:2:0 -quality 85 \
 			"public/$thumb.jpg" &
-		nice convert "$file" \
-			-strip \
+		nice convert "$file" -strip \
 			-resize '2000x1500>' \
 			-sampling-factor 4:2:0 -quality 85 \
 			"public/$big.jpg" &
-		nice convert "$file" \
-			-strip \
+		nice convert "$file" -strip \
 			-sampling-factor 4:2:0 -quality 95 \
 			"public/$download.jpg" &
 
