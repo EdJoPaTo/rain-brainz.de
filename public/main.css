@@ -30,6 +30,7 @@ body {
 
 header h1 {
 	font-size: 20vmin;
+	margin: 8vmin 0;
 	text-align: center;
 	text-shadow: 0 0 10px #000;
 }
