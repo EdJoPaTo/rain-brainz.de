@@ -63,6 +63,10 @@ main {
 	margin: 0 1rem;
 }
 
+main > a {
+	cursor: zoom-in;
+}
+
 main img {
 	height: auto;
 	max-width: 100%;
