@@ -53,14 +53,13 @@ a {
 }
 
 main {
-	align-content: space-around;
+	align-content: center;
 	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
 	flex: 1;
-	gap: 1rem;
-	justify-content: space-evenly;
-	margin: 0 1rem;
+	gap: 6px;
+	justify-content: center;
 }
 
 main > a {
@@ -68,6 +67,7 @@ main > a {
 }
 
 main img {
+	display: block;
 	height: auto;
 	max-width: 100%;
 }
