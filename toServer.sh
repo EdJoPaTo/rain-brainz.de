@@ -2,7 +2,7 @@
 set -eu
 
 rm -rf public/i/
-./generate.sh
+deno run --allow-read=originals,parts,public --allow-write=public --allow-run generate.ts
 rsync \
 	--checksum \
 	--compress \
