@@ -95,7 +95,7 @@ for (const [index, original] of Object.entries(originals)) {
     ]);
   }
 
-  const caption = original.caption || "Thumbnail of an untitled image";
+  const caption = original.caption || "untitled image";
   const { width: thumbWidth, height: thumbHeight } = await imagemagick.identify(
     `public/${thumb}.jpg`,
   );
