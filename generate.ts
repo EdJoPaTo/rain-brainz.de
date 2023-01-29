@@ -42,8 +42,6 @@ for (const [index, original] of Object.entries(originals)) {
     original.datetime,
     (i / originals.length).toFixed(2).slice(2) + "%",
     original.name,
-    original.width,
-    original.height,
   );
 
   const thumb = `i/${original.datetime}t`;
@@ -96,9 +94,8 @@ for (const [index, original] of Object.entries(originals)) {
   }
 
   const caption = original.caption || "untitled image";
-  const { width: thumbWidth, height: thumbHeight } = await imagemagick.identify(
-    `public/${thumb}.jpg`,
-  );
+  const { width: thumbWidth, height: thumbHeight } = await imagemagick
+    .identifySize(`public/${thumb}.jpg`);
 
   indexHtml += `<div class="thumbbox">
 \t<a href="#${original.datetime}">
