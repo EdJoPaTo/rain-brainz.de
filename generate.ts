@@ -39,9 +39,9 @@ for (const [index, original] of Object.entries(originals)) {
     original.height,
   );
 
-  const thumb = `i/${i}_thumb`;
-  const big = `i/${i}_big`;
-  const download = `i/${i}_download`;
+  const thumb = `i/${original.datetime}t`;
+  const big = `i/${original.datetime}b`;
+  const download = `i/${original.datetime}d`;
 
   const thumbResize = ["-resize", "450x400>"];
   const jpgQuality = ["-sampling-factor", "4:2:0", "-quality"];
@@ -94,32 +94,32 @@ for (const [index, original] of Object.entries(originals)) {
   );
 
   indexHtml += `<div class="thumbbox">
-\t<a href="#${i}">
+\t<a href="#${original.datetime}">
 \t\t<picture>
 \t\t\t<source srcset="${thumb}.avif" type="image/avif">
 \t\t\t<img src="${thumb}.jpg" width="${thumbWidth}" height="${thumbHeight}" loading="lazy" alt="${caption}" />
 \t\t</picture>
 \t</a>
 </div>
-<div id="${i}" class="lightbox">
+<div id="${original.datetime}" class="lightbox">
 \t<div class="image" style="background-image: url(${big}.jpg); background-image: image-set(url(${big}.avif) type('image/avif'));"></div>
 `;
 
   if (i > 0) {
-    const before = i - 1;
+    const before = originals[i - 1]!.datetime;
     indexHtml +=
       `\t<a class="before" href="#${before}" aria-label="Go to the image before"></a>\n`;
   }
 
   if (i + 1 < originals.length) {
-    const after = i + 1;
+    const after = originals[i + 1]!.datetime;
     indexHtml +=
       `\t<a class="after" href="#${after}" aria-label="Go to the image after"></a>\n`;
   }
 
   indexHtml +=
     `\t<a class="close" href="#_" aria-label="Close the image overlay"></a>
-\t<a class="download" href="${download}.jpg" aria-label="Download the image" download="rain-brainz-${i}"></a>
+\t<a class="download" href="${download}.jpg" aria-label="Download the image" download="rain-brainz-${original.datetime}"></a>
 </div>
 `;
 }

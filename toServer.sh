@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-rm -rf public/i/
+# rm -rf public/i/
 deno run --allow-read=originals,parts,public --allow-write=public --allow-run generate.ts
 rsync \
 	--checksum \
