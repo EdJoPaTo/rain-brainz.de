@@ -8,14 +8,21 @@ function fileExists(path: string) {
   }
 }
 
+const originalFiles = [...Deno.readDirSync("originals")]
+  .filter((o) => o.isFile)
+  .map((o) => o.name)
+  .filter((o) => o !== ".gitkeep")
+  .map((name, i) => ({ i, name }));
+
 const originals: imagemagick.ImageMeta[] = [];
 
-for await (const e of Deno.readDirSync("originals")) {
-  if (!e.isFile) continue;
-  if (e.name === ".gitkeep") continue;
-  const { name } = e;
-  console.log("identify", originals.length, name);
-
+for (const { i, name } of originalFiles) {
+  console.log(
+    "identify",
+    (i / originalFiles.length).toFixed(2).slice(2) + "%",
+    originals.length + 1,
+    name,
+  );
   const meta = await imagemagick.identify("originals/" + name);
   originals.push(meta);
 }
