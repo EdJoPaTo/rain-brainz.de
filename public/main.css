@@ -60,14 +60,21 @@ main {
 	flex-wrap: wrap;
 	flex: 1;
 	gap: 6px;
-	justify-content: center;
+	justify-content: space-evenly;
 }
 
-main > a {
+.thumbbox {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	width: 450px;
+}
+
+.thumbbox > a {
 	cursor: zoom-in;
 }
 
-main img {
+.thumbbox img {
 	display: block;
 	height: auto;
 	max-width: 100%;

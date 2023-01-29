@@ -43,14 +43,7 @@ for (const [index, original] of Object.entries(originals)) {
   const big = `i/${i}_big`;
   const download = `i/${i}_download`;
 
-  const thumbResize = [
-    "-resize",
-    "450x300^",
-    "-gravity",
-    "Center",
-    "-extent",
-    "450x300",
-  ];
+  const thumbResize = ["-resize", "450x400>"];
   const jpgQuality = ["-sampling-factor", "4:2:0", "-quality"];
 
   if (!fileExists(`public/${big}.avif`)) {
@@ -95,12 +88,19 @@ for (const [index, original] of Object.entries(originals)) {
     ]);
   }
 
-  indexHtml += `<a href="#${i}">
-\t<picture>
-\t\t<source srcset="${thumb}.avif" type="image/avif">
-\t\t<img src="${thumb}.jpg" width="450" height="300" loading="lazy" alt="Thumbnail of an untitled image" />
-\t</picture>
-</a>
+  const caption = original.caption || "Thumbnail of an untitled image";
+  const { width: thumbWidth, height: thumbHeight } = await imagemagick.identify(
+    `public/${thumb}.jpg`,
+  );
+
+  indexHtml += `<div class="thumbbox">
+\t<a href="#${i}">
+\t\t<picture>
+\t\t\t<source srcset="${thumb}.avif" type="image/avif">
+\t\t\t<img src="${thumb}.jpg" width="${thumbWidth}" height="${thumbHeight}" loading="lazy" alt="${caption}" />
+\t\t</picture>
+\t</a>
+</div>
 <div id="${i}" class="lightbox">
 \t<div class="image" style="background-image: url(${big}.jpg); background-image: image-set(url(${big}.avif) type('image/avif'));"></div>
 `;
