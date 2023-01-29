@@ -23,7 +23,7 @@ for await (const e of Deno.readDirSync("originals")) {
 console.log("total originals found", originals.length);
 
 originals.sort((a, b) => a.name.localeCompare(b.name));
-originals.sort((a, b) => a.datetime.localeCompare(b.datetime));
+originals.sort((a, b) => b.datetime.localeCompare(a.datetime));
 
 await Deno.mkdir("public/i/", { recursive: true });
 let indexHtml = await Deno.readTextFile("parts/prefix.html");
