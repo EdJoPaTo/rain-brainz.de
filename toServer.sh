@@ -5,7 +5,6 @@ set -eu
 deno run --allow-read=originals,parts,public --allow-write=public --allow-run generate.ts
 rsync \
 	--checksum \
-	--compress \
 	--delay-updates \
 	--delete-delay \
 	--exclude=.DS_Store \
