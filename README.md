@@ -9,6 +9,6 @@ See https://rain-brainz.de
 This was made to suit my needs. Maybe it also works for you.
 
 - Place the images in the folder `originals`.
-- Make sure ImageMagick is installed (with AVIF support).
+- Make sure ImageMagick is installed.
 - Make sure Deno is installed.
 - Run `deno run -A generate.ts` or `./toServer.sh`

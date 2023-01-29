@@ -48,28 +48,15 @@ for (const [index, original] of Object.entries(originals)) {
   const big = `i/${original.datetime}b`;
   const download = `i/${original.datetime}d`;
 
-  const thumbResize = ["-resize", "450x400>"];
-  const jpgQuality = ["-sampling-factor", "4:2:0", "-quality"];
+  const jpgSampling = ["-sampling-factor", "4:2:0"];
 
-  if (!fileExists(`public/${big}.avif`)) {
+  if (!fileExists(`public/${big}.jpg`)) {
     await Promise.all([
       imagemagick.convert(
         original.name,
         "-strip",
-        "-resize",
-        "3000x2500>",
-        `public/${big}.avif`,
-      ),
-      imagemagick.convert(
-        original.name,
-        "-strip",
-        ...thumbResize,
-        `public/${thumb}.avif`,
-      ),
-      imagemagick.convert(
-        original.name,
-        "-strip",
-        ...jpgQuality,
+        ...jpgSampling,
+        "-quality",
         "95",
         `public/${download}.jpg`,
       ),
@@ -77,16 +64,19 @@ for (const [index, original] of Object.entries(originals)) {
         original.name,
         "-strip",
         "-resize",
-        "2000x1500>",
-        ...jpgQuality,
+        "2000x2000>",
+        ...jpgSampling,
+        "-quality",
         "85",
         `public/${big}.jpg`,
       ),
       imagemagick.convert(
         original.name,
         "-strip",
-        ...thumbResize,
-        ...jpgQuality,
+        "-resize",
+        "450x400>",
+        ...jpgSampling,
+        "-quality",
         "85",
         `public/${thumb}.jpg`,
       ),
@@ -99,14 +89,11 @@ for (const [index, original] of Object.entries(originals)) {
 
   indexHtml += `<div class="thumbbox">
 \t<a href="#${original.datetime}">
-\t\t<picture>
-\t\t\t<source srcset="${thumb}.avif" type="image/avif">
-\t\t\t<img src="${thumb}.jpg" width="${thumbWidth}" height="${thumbHeight}" loading="lazy" alt="${caption}" />
-\t\t</picture>
+\t\t<img src="${thumb}.jpg" width="${thumbWidth}" height="${thumbHeight}" loading="lazy" alt="${caption}" />
 \t</a>
 </div>
 <div id="${original.datetime}" class="lightbox">
-\t<div class="image" style="background-image: url(${big}.jpg); background-image: image-set(url(${big}.avif) type('image/avif'));"></div>
+\t<div class="image" style="background-image: url(${big}.jpg);"></div>
 `;
 
   if (i > 0) {
