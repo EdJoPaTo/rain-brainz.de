@@ -109,7 +109,7 @@ for (const [index, original] of Object.entries(originals)) {
   }
 
   indexHtml +=
-    `\t<a class="close" href="#_" aria-label="Close the image overlay"></a>
+    `\t<a class="close" href="#" aria-label="Close the image overlay"></a>
 \t<a class="download" href="${download}.jpg" aria-label="Download the image" download="rain-brainz-${original.datetime}"></a>
 </div>
 `;
