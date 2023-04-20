@@ -12,6 +12,7 @@ const originalFiles = [...Deno.readDirSync("originals")]
   .filter((o) => o.isFile)
   .map((o) => o.name)
   .filter((o) => o !== ".gitkeep")
+  .filter((o) => o !== ".DS_Store")
   .map((name, i) => ({ i, name }));
 
 const originals: imagemagick.ImageMeta[] = [];
