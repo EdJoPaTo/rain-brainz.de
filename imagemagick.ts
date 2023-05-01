@@ -49,15 +49,14 @@ export async function convert(...options: string[]): Promise<void> {
   await exec("nice", "convert", ...options);
 }
 
-async function exec(...cmd: [string, ...string[]]): Promise<string> {
-  const process = Deno.run({ cmd, stdout: "piped", stderr: "null" });
-
-  const status = await process.status();
+export async function exec(cmd: string, ...args: string[]): Promise<string> {
+  const process = new Deno.Command(cmd, { args, stdout: "piped" }).spawn();
+  const status = await process.status;
   if (!status.success) {
-    throw new Error(`Command ${cmd[0]} was not successful`);
+    throw new Error(`Command ${cmd} was not successful`);
   }
 
-  const outputBuffer = await process.output();
+  const { stdout: outputBuffer } = await process.output();
   const output = new TextDecoder().decode(outputBuffer);
   return output;
 }
