@@ -87,6 +87,8 @@ for (const [index, original] of Object.entries(originals)) {
 	const caption = original.caption || "untitled image";
 	const { width: thumbWidth, height: thumbHeight } = await imagemagick
 		.identifySize(`public/${thumb}.jpg`);
+	const { width: bigWidth, height: bigHeight } = await imagemagick
+		.identifySize(`public/${big}.jpg`);
 
 	indexHtml += `<div class="thumbbox">
 \t<a href="#${original.datetime}">
@@ -94,7 +96,7 @@ for (const [index, original] of Object.entries(originals)) {
 \t</a>
 </div>
 <div id="${original.datetime}" class="lightbox">
-\t<div class="image" style="background-image: url(${big}.jpg);"></div>
+\t<img src="${big}.jpg" width="${bigWidth}" height="${bigHeight}" alt="${caption}" />
 `;
 
 	if (i > 0) {

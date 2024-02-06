@@ -98,12 +98,11 @@ main {
 	justify-content: space-evenly;
 }
 
-.lightbox .image {
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	height: 95%;
-	width: 95%;
+.lightbox img {
+	height: auto;
+	max-height: 95vh;
+	max-width: 95vw;
+	width: auto;
 }
 
 .lightbox > a {
