@@ -66,9 +66,10 @@ main {
 
 .thumbbox {
 	align-items: center;
+	box-shadow: 1px 1px 5px black;
 	display: flex;
 	justify-content: center;
-	transition: rotate 1s;
+	transition: box-shadow 1s, rotate 1s;
 	width: 450px;
 }
 
@@ -99,6 +100,7 @@ main {
 }
 
 html .thumbbox:hover {
+	box-shadow: 5px 5px 15px black;
 	rotate: 0deg;
 }
 
