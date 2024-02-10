@@ -38,6 +38,7 @@ header h1 {
 footer {
 	position: sticky;
 	bottom: 2px;
+	z-index: 10;
 
 	-webkit-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
@@ -59,7 +60,7 @@ main {
 	display: flex;
 	flex-wrap: wrap;
 	flex: 1;
-	gap: 6px;
+	gap: 20px;
 	justify-content: space-evenly;
 }
 
@@ -67,7 +68,38 @@ main {
 	align-items: center;
 	display: flex;
 	justify-content: center;
+	transition: rotate 1s;
 	width: 450px;
+}
+
+@media (width >=470px) {
+	main {
+		margin: 0 10px;
+	}
+
+	.thumbbox {
+		rotate: 1deg;
+	}
+
+	.thumbbox:nth-of-type(2n) {
+		rotate: -2deg;
+	}
+
+	.thumbbox:nth-of-type(3n) {
+		rotate: -2deg;
+	}
+
+	.thumbbox:nth-of-type(5n) {
+		rotate: -1deg;
+	}
+
+	.thumbbox:nth-of-type(7n) {
+		rotate: 3deg;
+	}
+}
+
+html .thumbbox:hover {
+	rotate: 0deg;
 }
 
 .thumbbox > a {
@@ -90,6 +122,7 @@ main {
 	position: fixed;
 	top: 0;
 	width: 100%;
+	z-index: 1;
 }
 
 .lightbox:target {
