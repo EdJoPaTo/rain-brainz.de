@@ -96,7 +96,7 @@ for (const [index, original] of Object.entries(originals)) {
 \t</a>
 </div>
 <div id="${original.datetime}" class="lightbox">
-\t<img src="${big}.jpg" width="${bigWidth}" height="${bigHeight}" alt="${caption}" />
+\t<img src="${big}.jpg" width="${bigWidth}" height="${bigHeight}" loading="lazy" alt="${caption}" />
 `;
 
 	if (i > 0) {
