@@ -66,11 +66,20 @@ main {
 
 .thumbbox {
 	align-items: center;
-	box-shadow: 1px 1px 5px black;
 	display: flex;
 	justify-content: center;
-	transition: box-shadow 1s, rotate 1s;
+	transition: rotate 1s;
 	width: 450px;
+}
+
+.thumbbox > a {
+	cursor: zoom-in;
+}
+
+.thumbbox img {
+	height: auto;
+	max-width: 100%;
+	transition: box-shadow 1s;
 }
 
 @media (width >=470px) {
@@ -97,21 +106,18 @@ main {
 	.thumbbox:nth-of-type(7n) {
 		rotate: 3deg;
 	}
-}
 
-html .thumbbox:hover {
-	box-shadow: 5px 5px 15px black;
-	rotate: 0deg;
-}
+	html .thumbbox:hover {
+		rotate: 0deg;
+	}
 
-.thumbbox > a {
-	cursor: zoom-in;
-}
+	.thumbbox img {
+		box-shadow: 0 0 5px black;
+	}
 
-.thumbbox img {
-	display: block;
-	height: auto;
-	max-width: 100%;
+	.thumbbox img:hover {
+		box-shadow: 0 0 20px black;
+	}
 }
 
 .lightbox {
