@@ -18,6 +18,10 @@ body {
 	min-height: 100vh;
 }
 
+body:has(.lightbox:target) {
+	overflow: hidden;
+}
+
 @media (prefers-color-scheme: dark) {
 	html {
 		background: #222;
