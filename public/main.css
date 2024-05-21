@@ -15,7 +15,7 @@ body {
 	color: black;
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
+	min-height: 100dvh;
 }
 
 body:has(.lightbox:target) {
@@ -145,8 +145,8 @@ main {
 
 .lightbox img {
 	height: auto;
-	max-height: 95vh;
-	max-width: 95vw;
+	max-height: 95%;
+	max-width: 95%;
 	width: auto;
 }
 
