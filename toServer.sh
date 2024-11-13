@@ -2,7 +2,7 @@
 set -eu
 
 # rm -rf public/i/
-deno run --allow-read=originals,parts,public --allow-write=public --allow-run generate.ts
+deno --allow-read=originals,parts,public --allow-write=public --allow-run generate.ts
 rsync \
 	--checksum \
 	--delay-updates \
