@@ -46,10 +46,10 @@ export async function identifySize(path: string): Promise<Size> {
 }
 
 export async function convert(...options: string[]): Promise<void> {
-	await exec("nice", "convert", ...options);
+	await exec("nice", "magick", ...options);
 }
 
-export async function exec(cmd: string, ...args: string[]): Promise<string> {
+async function exec(cmd: string, ...args: string[]): Promise<string> {
 	const process = new Deno.Command(cmd, { args, stdout: "piped" }).spawn();
 	const status = await process.status;
 	if (!status.success) {
