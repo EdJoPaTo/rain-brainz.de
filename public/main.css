@@ -46,7 +46,7 @@ footer {
 
 	-webkit-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
-	background-color: rgba(240,240,240,0.5);
+	background-color: rgba(240, 240, 240, 0.5);
 	border-radius: 0.2rem;
 	color: black;
 	margin: 1rem auto;
@@ -86,7 +86,7 @@ main {
 	transition: box-shadow 1s;
 }
 
-@media (width >=470px) {
+@media (width >= 470px) {
 	main {
 		margin: 0 10px;
 	}
@@ -127,7 +127,7 @@ main {
 .lightbox {
 	-webkit-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
-	background-color: rgba(20,20,20,0.95);
+	background-color: rgba(20, 20, 20, 0.95);
 	display: none;
 	height: 100%;
 	left: 0;
@@ -165,7 +165,7 @@ main {
 }
 
 .lightbox > a:hover {
-	background-color: rgba(0,0,0,0.5);
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .lightbox > a::after {
