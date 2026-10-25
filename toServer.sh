@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -eu
 
-# rm -rf public/i/
-deno --allow-read=originals,parts,public --allow-write=public --allow-run generate.ts
+# rm -rf public/index.html public/i/
+deno --allow-read=originals,parts,public --allow-write=public --allow-env --allow-run generate.ts
 rsync \
 	--checksum \
 	--delay-updates \

@@ -1,3 +1,8 @@
+import childProcess from "node:child_process";
+import util from "node:util";
+
+const execFile = util.promisify(childProcess.execFile);
+
 export type ImageMeta = {
 	readonly name: string;
 	readonly datetime: string;
@@ -11,14 +16,20 @@ export type Size = {
 };
 
 export async function identify(name: string): Promise<ImageMeta> {
-	const output = await exec(
+	const { stdout, stderr } = await execFile(
 		"identify",
-		"-format",
-		"%[EXIF:DateTime]\n%[EXIF:Model]\n%[EXIF:ImageDescription]\n",
-		name,
+		[
+			"-format",
+			"%[EXIF:DateTime]\n%[EXIF:Model]\n%[EXIF:ImageDescription]\n",
+			name,
+		],
+		{ encoding: "utf8" },
 	);
+	if (stderr.trim()) {
+		console.log(stderr);
+	}
 
-	const match = /^(.*)\n(.*)\n([\w\W]*)\n$/.exec(output);
+	const match = /^(.*)\n(.*)\n([\w\W]*)\n$/.exec(stdout);
 	if (!match) {
 		throw new Error("failed to parse identify stdout");
 	}
@@ -33,9 +44,14 @@ export async function identify(name: string): Promise<ImageMeta> {
 }
 
 export async function identifySize(path: string): Promise<Size> {
-	const output = await exec("identify", path);
+	const { stdout, stderr } = await execFile("identify", [path], {
+		encoding: "utf8",
+	});
+	if (stderr.trim()) {
+		throw new Error("identifySize should not return something on stderr");
+	}
 
-	const match = / (\d+)x(\d+) /.exec(output);
+	const match = / (\d+)x(\d+) /.exec(stdout);
 	if (!match) {
 		throw new Error("failed to parse identify stdout");
 	}
@@ -46,17 +62,5 @@ export async function identifySize(path: string): Promise<Size> {
 }
 
 export async function convert(...options: string[]): Promise<void> {
-	await exec("nice", "magick", ...options);
-}
-
-async function exec(cmd: string, ...args: string[]): Promise<string> {
-	const process = new Deno.Command(cmd, { args, stdout: "piped" }).spawn();
-	const status = await process.status;
-	if (!status.success) {
-		throw new Error(`Command ${cmd} was not successful`);
-	}
-
-	const { stdout: outputBuffer } = await process.output();
-	const output = new TextDecoder().decode(outputBuffer);
-	return output;
+	await execFile("nice", ["magick", ...options]);
 }

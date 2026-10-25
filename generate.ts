@@ -1,14 +1,14 @@
+import {
+	existsSync,
+	mkdirSync,
+	readdirSync,
+	readFileSync,
+	writeFileSync,
+} from "node:fs";
+
 import * as imagemagick from "./imagemagick.ts";
 
-function fileExists(path: string) {
-	try {
-		return Deno.statSync(path).isFile;
-	} catch {
-		return false;
-	}
-}
-
-const originalFiles = [...Deno.readDirSync("originals")]
+const originalFiles = readdirSync("originals", { withFileTypes: true })
 	.filter((o) => o.isFile)
 	.map((o) => o.name)
 	.filter((o) => o !== ".gitkeep")
@@ -33,8 +33,8 @@ console.log("total originals found", originals.length);
 originals.sort((a, b) => a.name.localeCompare(b.name));
 originals.sort((a, b) => b.datetime.localeCompare(a.datetime));
 
-await Deno.mkdir("public/i/", { recursive: true });
-let indexHtml = await Deno.readTextFile("parts/prefix.html");
+mkdirSync("public/i/", { recursive: true });
+let indexHtml = readFileSync("parts/prefix.html", "utf8");
 
 for (const [index, original] of Object.entries(originals)) {
 	const i = Number(index);
@@ -51,7 +51,7 @@ for (const [index, original] of Object.entries(originals)) {
 
 	const jpgSampling = ["-sampling-factor", "4:2:0"];
 
-	if (!fileExists(`public/${big}.jpg`)) {
+	if (!existsSync(`public/${big}.jpg`)) {
 		await Promise.all([
 			imagemagick.convert(
 				original.name,
@@ -118,5 +118,5 @@ for (const [index, original] of Object.entries(originals)) {
 `;
 }
 
-indexHtml += await Deno.readTextFile("parts/suffix.html");
-await Deno.writeTextFile("public/index.html", indexHtml);
+indexHtml += readFileSync("parts/suffix.html", "utf8");
+writeFileSync("public/index.html", indexHtml);
