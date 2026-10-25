@@ -8,9 +8,13 @@ body {
 html {
 	background: whitesmoke;
 }
+@media (prefers-color-scheme: dark) {
+	html {
+		background: #222;
+	}
+}
 
 body {
-	color: black;
 	display: flex;
 	flex-direction: column;
 	min-height: 100dvh;
@@ -18,16 +22,6 @@ body {
 
 body:has(.lightbox:target) {
 	overflow: hidden;
-}
-
-@media (prefers-color-scheme: dark) {
-	html {
-		background: #222;
-	}
-
-	body {
-		color: whitesmoke;
-	}
 }
 
 header h1 {
