@@ -3,35 +3,36 @@ import {
 	mkdirSync,
 	readdirSync,
 	readFileSync,
+	utimesSync,
 	writeFileSync,
 } from "node:fs";
+import { cpus } from "node:os";
 
 import * as imagemagick from "./imagemagick.ts";
+
+const cores = cpus().length;
 
 const originalFiles = readdirSync("originals", { withFileTypes: true })
 	.filter((o) => o.isFile)
 	.map((o) => o.name)
 	.filter((o) => o !== ".gitkeep")
-	.filter((o) => o !== ".DS_Store")
-	.map((name, i) => ({ i, name }));
+	.filter((o) => o !== ".DS_Store");
 
 const originals: imagemagick.ImageMeta[] = [];
 
-for (const { i, name } of originalFiles) {
-	console.log(
-		"identify",
-		(i / originalFiles.length).toFixed(2).slice(2) + "%",
-		originals.length + 1,
-		name,
+while (originalFiles.length) {
+	console.log("identify", originalFiles.length, "->", originals.length);
+	const batch = await Promise.all(
+		originalFiles
+			.splice(0, cores)
+			.map((name) => imagemagick.identify("originals/" + name)),
 	);
-	const meta = await imagemagick.identify("originals/" + name);
-	originals.push(meta);
+	originals.push(...batch);
 }
-
 console.log("total originals found", originals.length);
 
 originals.sort((a, b) => a.name.localeCompare(b.name));
-originals.sort((a, b) => b.datetime.localeCompare(a.datetime));
+originals.sort((a, b) => b.datetime.getTime() - a.datetime.getTime());
 
 mkdirSync("public/i/", { recursive: true });
 let indexHtml = readFileSync("parts/prefix.html", "utf8");
@@ -40,14 +41,14 @@ for (const [index, original] of Object.entries(originals)) {
 	const i = Number(index);
 	console.log(
 		"handle",
-		original.datetime,
+		original.identifier,
 		(i / originals.length).toFixed(2).slice(2) + "%",
 		original.name,
 	);
 
-	const thumb = `i/${original.datetime}t`;
-	const big = `i/${original.datetime}b`;
-	const download = `i/${original.datetime}d`;
+	const thumb = `i/${original.identifier}t`;
+	const big = `i/${original.identifier}b`;
+	const download = `i/${original.identifier}d`;
 
 	const jpgSampling = ["-sampling-factor", "4:2:0"];
 
@@ -82,6 +83,10 @@ for (const [index, original] of Object.entries(originals)) {
 				`public/${thumb}.jpg`,
 			),
 		]);
+
+		for (const name of [thumb, big, download]) {
+			utimesSync(`public/${name}.jpg`, original.datetime, original.datetime);
+		}
 	}
 
 	const caption = original.caption || "untitled image";
@@ -91,29 +96,29 @@ for (const [index, original] of Object.entries(originals)) {
 		.identifySize(`public/${big}.jpg`);
 
 	indexHtml += `<div class="thumbbox">
-\t<a href="#${original.datetime}">
+\t<a href="#${original.identifier}">
 \t\t<img src="${thumb}.jpg" width="${thumbWidth}" height="${thumbHeight}" loading="lazy" alt="${caption}" />
 \t</a>
 </div>
-<div id="${original.datetime}" class="lightbox">
+<div id="${original.identifier}" class="lightbox">
 \t<img src="${big}.jpg" width="${bigWidth}" height="${bigHeight}" loading="lazy" alt="${caption}" title="${caption}" />
 `;
 
 	if (i > 0) {
-		const before = originals[i - 1]!.datetime;
+		const before = originals[i - 1]!.identifier;
 		indexHtml +=
 			`\t<a class="before" href="#${before}" aria-label="Go to the image before"></a>\n`;
 	}
 
 	if (i + 1 < originals.length) {
-		const after = originals[i + 1]!.datetime;
+		const after = originals[i + 1]!.identifier;
 		indexHtml +=
 			`\t<a class="after" href="#${after}" aria-label="Go to the image after"></a>\n`;
 	}
 
 	indexHtml +=
 		`\t<a class="close" href="#_" aria-label="Close the image overlay"></a>
-\t<a class="download" href="${download}.jpg" aria-label="Download the image" download="rain-brainz-${original.datetime}"></a>
+\t<a class="download" href="${download}.jpg" aria-label="Download the image" download="rain-brainz-${original.identifier}.jpg"></a>
 </div>
 `;
 }
