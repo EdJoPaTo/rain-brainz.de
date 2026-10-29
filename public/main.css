@@ -127,8 +127,8 @@ main {
 
 .lightbox img {
 	height: auto;
-	max-height: 95%;
-	max-width: 95%;
+	max-height: 100%;
+	max-width: 100%;
 	width: auto;
 }
 
