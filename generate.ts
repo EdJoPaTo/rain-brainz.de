@@ -119,6 +119,18 @@ for (const [index, original] of Object.entries(originals)) {
 	indexHtml +=
 		`\t<a class="close" href="#_" aria-label="Close the image overlay"></a>
 \t<a class="download" href="${download}.jpg" aria-label="Download the image" download="rain-brainz-${original.identifier}.jpg"></a>
+\t<p class="caption">
+`;
+
+	if (original.caption) {
+		indexHtml += `\t\t${caption}
+\t\t<br>
+`;
+	}
+
+	indexHtml +=
+		`\t\t<a href="https://creativecommons.org/licenses/by-nd/4.0/">CC-BY-ND 4.0</a> <a href="https://edjopato.de/">EdJoPaTo</a>
+\t</p>
 </div>
 `;
 }

@@ -32,17 +32,7 @@ header h1 {
 }
 
 footer {
-	position: sticky;
-	bottom: 2px;
-	z-index: 10;
-
-	-webkit-backdrop-filter: blur(5px);
-	backdrop-filter: blur(5px);
-	background-color: rgba(240, 240, 240, 0.5);
-	border-radius: 0.2rem;
-	color: black;
 	margin: 1rem auto;
-	padding: 0.2rem;
 	text-align: center;
 }
 
@@ -140,6 +130,21 @@ main {
 	max-height: 95%;
 	max-width: 95%;
 	width: auto;
+}
+
+.lightbox .caption {
+	position: fixed;
+	bottom: 5px;
+
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+	background-color: rgba(240, 240, 240, 0.5);
+	border-radius: 0.2rem;
+	color: black;
+	margin: 0;
+	max-width: 80%;
+	padding: 0.2rem;
+	text-align: center;
 }
 
 .lightbox > a {
